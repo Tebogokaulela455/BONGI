@@ -13,6 +13,20 @@ const fs = require('fs');
 const app = express();
 const PORT = 3000; // Represents your backend URL
 
+
+const cors = require('cors');
+
+// --- Replace your old app.use(cors()) with this ---
+app.use(cors({
+    origin: '*', // Allows all websites to access your API
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    credentials: true
+}));
+
+// Manually handle preflight requests for all routes
+app.options('*', cors());
+
 // --- 1. Configuration ---
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
